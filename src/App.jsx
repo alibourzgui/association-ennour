@@ -4,43 +4,36 @@ const activitiesData = {
   fr: [
     {
       title: "Campagne de sensibilisation aux dangers de la pandémie de coronavirus",
-      text: "Le 10 octobre 2020, l'association Al-Nour pour le développement et les œuvres caritatives a organisé une campagne de sensibilisation au sein du complexe scolaire d'Oulad Saïd afin d'informer les élèves sur les dangers du nouveau coronavirus, la COVID-19. L'association a distribué des masques de protection et du gel hydroalcoolique à tous les élèves. Un remerciement particulier est adressé au directeur de l'établissement et aux autorités locales : M. Mohamed El-Qasmi, préfet du district d'Oulad Saïd, M. Abdel Salam Baatouti et M. Abdelilah Habib, maire d'Oulad Saïd.",
-      image:
-        "/corona.jpg",
+      text: "Le 10 octobre 2020, l'association Al-Nour pour le développement et les œuvres caritatives a organisé une campagne de sensibilisation au sein du complexe scolaire d'Oulad Saïd afin d'informer les élèves sur les dangers du nouveau coronavirus, la COVID-19. L'association a distribué des masques de protection et du gel hydroalcoolique à tous les élèves. Un remerciement particulier est adressé au directeur de l'établissement et aux autorités locales : M. Mohamed El-Qasmi, préfet du district d'Oulad Saïd, M. Abdel Salam Baatouti et M. Abdelilah Habib, maire d'Oulad Saïd.",
+      image: "/corona.jpg",
     },
     {
       title: "Soutien aux enfants",
       text: "Accompagnement scolaire, fournitures, vêtements et actions sociales pour redonner espoir aux plus jeunes.",
-      image:
-        "/hichaa.jpeg",
+      image: "/hichaa.jpeg",
     },
     {
       title: "Création d'une antenne régionale dans la ville de Laâyoune-Sakia El Hamra",
       text: "Dans le cadre de l'expansion de ses activités et du renforcement de sa présence sur le terrain, Mme Aisha Nour El Islam, présidente générale de l'Association Al Nour pour le développement et les œuvres caritatives - Bureau central de Settat, a supervisé la création de la nouvelle branche régionale dans la ville de Laâyoune - région de Sakia El Hamra, le vendredi 14 novembre 2025.",
-      image:
-        "/sahra.jpg",
+      image: "/sahra.jpg",
     },
   ],
   ar: [
     {
       title: "حملة تحسيسية لخطورة وباء كورونا",
       text: "نظمت جمعية النور للتنمية والاعمال الخيرية يوم 10.10.2020 حملة تحسيسية بمجموعة مدارس اولاد سعيد لتوعية تلاميذ المؤسسة من خطورة فيروس كورونا المستجد كوفيد 19 وقامت الجمعية بتوزيع كمامات واقية ومعقمات على جميع تلاميذ المؤسسة وشكرا خاص لمدير المؤسسة ورجال السلطة السيد قائد قيادة أولاد سعيد محمد القاسمي والسيد الخلفية عبد السلام بعتوتي والسيد عبد الإله حبيب رئيس جماعة اولاد سعيد",
-      image:
-        "/corona.jpg",
+      image: "/corona.jpg",
     },
     {
       title: "دعم الأطفال",
       text: "مواكبة دراسية ولوازم مدرسية وملابس ومبادرات اجتماعية لإعادة الأمل للأطفال.",
-      image:
-        "/hichaa.jpeg",
+      image: "/hichaa.jpeg",
     },
     {
       title: "تأسيس فرع جهوي بمدينة العيون الساقية الحمراء",
       text: "في إطار توسيع أنشطتها وتعزيز حضورها الميداني، أشرفت السيدة عائشة نور الإسلام، الرئيسة العامة لجمعية النور للتنمية والأعمال الخيرية – المكتب المركزي سطات، على تأسيس الفرع الجهوي الجديد بمدينة العيون – جهة الساقية الحمراء، وذلك يوم الجمعة 14 نونبر 2025.",
-      image:
-        "/sahra.jpg",
+      image: "/sahra.jpg",
     },
-    
   ],
 };
 
@@ -195,10 +188,6 @@ const content = {
   },
 };
 
-function IconWrapper({ children, className = "" }) {
-  return <span className={className}>{children}</span>;
-}
-
 function HeartIcon({ className = "h-6 w-6" }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
@@ -328,6 +317,11 @@ export default function App() {
   const activities = activitiesData[lang];
   const isArabic = lang === "ar";
 
+  const whatsappMessage = encodeURIComponent(
+    "السلام عليكم، أود التواصل مع جمعية النور للتنمية والأعمال الخيرية."
+  );
+  const whatsappLink = `https://wa.me/212613196865?text=${whatsappMessage}`;
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -336,7 +330,7 @@ export default function App() {
     e.preventDefault();
     const subject = encodeURIComponent(`${t.formTitle} - ${form.name}`);
     const body = encodeURIComponent(`${form.message}\n\nEmail: ${form.email}`);
-    window.location.href = `mailto:contact@ennour.org?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:contact.association.ennour@gmail.com?subject=${subject}&body=${body}`;
   };
 
   const copyToClipboard = async (text) => {
@@ -367,16 +361,30 @@ export default function App() {
   return (
     <div className={pageClass} dir={isArabic ? "rtl" : "ltr"}>
       <header className={headerClass}>
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6">
-          <div className="flex min-w-0 items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl bg-white shadow-sm">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
+          <div className="flex min-w-0 flex-1 items-center gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white shadow-sm sm:h-12 sm:w-12">
               <img src="/logo.jpg" alt="Logo" className="h-full w-full object-contain" />
             </div>
-            <div>
-              <h1 className={isDark ? "text-base font-bold text-green-400 sm:text-lg" : "text-base font-bold text-green-700 sm:text-lg"}>
+
+            <div className="min-w-0">
+              <h1
+                className={
+                  isDark
+                    ? "truncate text-sm font-bold text-green-400 sm:text-lg"
+                    : "truncate text-sm font-bold text-green-700 sm:text-lg"
+                }
+              >
                 {t.brandTitle}
               </h1>
-              <p className={isDark ? "text-xs text-slate-400 sm:text-sm" : "text-xs text-slate-500 sm:text-sm"}>
+
+              <p
+                className={
+                  isDark
+                    ? "hidden text-xs text-slate-400 sm:block sm:text-sm"
+                    : "hidden text-xs text-slate-500 sm:block sm:text-sm"
+                }
+              >
                 {t.brandSubtitle}
               </p>
             </div>
@@ -391,7 +399,7 @@ export default function App() {
             <a href="#contact" className="transition hover:text-green-500">{t.nav[5]}</a>
           </nav>
 
-          <div className="ml-auto flex items-center gap-2 sm:gap-3">
+          <div className="ml-2 flex shrink-0 items-center gap-2 sm:gap-3">
             <button
               type="button"
               onClick={() => setLang((prev) => (prev === "fr" ? "ar" : "fr"))}
@@ -419,18 +427,19 @@ export default function App() {
 
             <a
               href="#don"
-              className="rounded-xl bg-orange-500 px-3 py-2 text-xs font-semibold text-white shadow-lg shadow-orange-200 transition hover:-translate-y-0.5 hover:bg-orange-600 sm:px-5 sm:py-3 sm:text-sm"
+              className="hidden rounded-xl bg-orange-500 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-orange-200 transition hover:-translate-y-0.5 hover:bg-orange-600 sm:inline-flex"
             >
               {t.donateBtn}
             </a>
           </div>
         </div>
+
         <div className="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-4 pb-3 md:hidden sm:px-6">
           <a href="#accueil" className="whitespace-nowrap rounded-full bg-green-50 px-4 py-2 text-sm font-medium text-green-700">{t.nav[0]}</a>
           <a href="#apropos" className="whitespace-nowrap rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">{t.nav[1]}</a>
           <a href="#activites" className="whitespace-nowrap rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">{t.nav[2]}</a>
           <a href="#galerie" className="whitespace-nowrap rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">{t.nav[3]}</a>
-          <a href="#don" className="whitespace-nowrap rounded-full bg-orange-100 px-4 py-2 text-sm font-medium text-orange-700">{t.nav[4]}</a>
+          <a href="#don" className="whitespace-nowrap rounded-full bg-orange-100 px-4 py-2 text-sm font-medium text-orange-700">{t.donateBtn}</a>
           <a href="#contact" className="whitespace-nowrap rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">{t.nav[5]}</a>
         </div>
       </header>
@@ -454,10 +463,12 @@ export default function App() {
             >
               {t.badge}
             </span>
+
             <h2 className={isDark ? "mt-6 text-3xl font-extrabold leading-tight text-white sm:text-4xl md:text-6xl" : "mt-6 text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl md:text-6xl"}>
               {t.heroTitle1} <span className="text-green-700">{t.heroHope}</span>,
               <span className="text-orange-500"> {t.heroHelp}</span> {t.heroTitle2}
             </h2>
+
             <p className={isDark ? "mt-6 max-w-xl text-lg leading-8 text-slate-300" : "mt-6 max-w-xl text-lg leading-8 text-slate-600"}>
               {t.heroText}
             </p>
@@ -469,6 +480,7 @@ export default function App() {
               >
                 {t.heroDonate} <ArrowIcon className="h-4 w-4" />
               </a>
+
               <a
                 href="#apropos"
                 className={
@@ -502,9 +514,9 @@ export default function App() {
             <div className="absolute -right-6 bottom-10 h-40 w-40 rounded-full bg-green-200/50 blur-3xl" />
             <div className={isDark ? "relative overflow-hidden rounded-[32px] bg-white/5 p-3 shadow-2xl shadow-black/30 ring-1 ring-white/10" : "relative overflow-hidden rounded-[32px] bg-white p-3 shadow-2xl shadow-slate-200"}>
               <img
-                src="/logo.jpg"
+                src="/propos.jpg"
                 alt="Action caritative"
-                className="h-[600px] w-full rounded-[24px] object-cover sm:h-[420px] md:h-[520px]"
+                className="h-[320px] w-full rounded-[24px] object-cover sm:h-[420px] md:h-[520px]"
               />
               <div className={isDark ? "absolute bottom-8 left-8 right-8 rounded-3xl bg-slate-950/75 p-5 backdrop-blur ring-1 ring-white/10" : "absolute bottom-8 left-8 right-8 rounded-3xl bg-white/90 p-5 backdrop-blur"}>
                 <div className="flex items-center gap-3">
@@ -554,6 +566,7 @@ export default function App() {
                   {t.aboutCard1Text}
                 </p>
               </div>
+
               <div className={isDark ? "rounded-2xl bg-orange-500/10 p-5 ring-1 ring-orange-400/10" : "rounded-2xl bg-orange-50 p-5"}>
                 <CoinsIcon className="mb-3 h-8 w-8 text-orange-500" />
                 <h4 className={isDark ? "font-bold text-white" : "font-bold text-slate-900"}>{t.aboutCard2}</h4>
@@ -712,7 +725,6 @@ export default function App() {
               <div className={isDark ? "flex items-center gap-4 rounded-2xl bg-white/5 p-5 ring-1 ring-white/10" : "flex items-center gap-4 rounded-2xl bg-slate-50 p-5"}>
                 <PhoneIcon className="h-6 w-6 text-green-700" />
                 <span className={isDark ? "text-slate-200" : "text-slate-700"}>+212 5 29 88 10 03</span>
-                
               </div>
               <div className={isDark ? "flex items-center gap-4 rounded-2xl bg-white/5 p-5 ring-1 ring-white/10" : "flex items-center gap-4 rounded-2xl bg-slate-50 p-5"}>
                 <MapPinIcon className="h-6 w-6 text-orange-500" />
@@ -757,13 +769,23 @@ export default function App() {
         </div>
       </section>
 
+      <a
+        href={whatsappLink}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="WhatsApp"
+        className="fixed bottom-5 right-5 z-[999] flex items-center gap-2 rounded-full bg-green-500 px-4 py-3 text-white shadow-2xl transition hover:scale-105 hover:bg-green-600"
+      >
+        <WhatsAppIcon className="h-5 w-5 text-white" />
+        <span className="hidden sm:inline">WhatsApp</span>
+      </a>
+
       <footer className="relative overflow-hidden bg-slate-950 text-white">
         <div className="absolute inset-0 bg-gradient-to-r from-green-900/30 via-transparent to-orange-900/20" />
         <div className="relative mx-auto max-w-7xl px-6 py-14">
           <div className="grid gap-10 border-b border-white/10 pb-10 md:grid-cols-4">
             <div className="md:col-span-2">
               <div className="flex items-center gap-3">
-                
                 <div>
                   <h3 className="text-2xl font-bold text-white">{t.brandTitle}</h3>
                   <p className="text-sm text-slate-400">{t.brandSubtitle}</p>
