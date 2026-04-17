@@ -99,6 +99,7 @@ const content = {
     bank: "Banque",
     accountOwner: "Titulaire du compte",
     copy: "Copier",
+    copyError: "Copie impossible pour le moment.",
     bankNote: "Remplace ces informations par les vraies coordonnées bancaires de l’association.",
     contactLabel: "Contact",
     contactTitle: "Restons en contact",
@@ -167,6 +168,7 @@ const content = {
     bank: "البنك",
     accountOwner: "صاحب الحساب",
     copy: "نسخ",
+    copyError: "تعذر النسخ في الوقت الحالي.",
     bankNote: "قم بتغيير هذه المعلومات بالمعلومات البنكية الحقيقية الخاصة بالجمعية.",
     contactLabel: "اتصل بنا",
     contactTitle: "ابقَ على تواصل معنا",
@@ -338,9 +340,12 @@ export default function App() {
       await navigator.clipboard.writeText(text);
       alert(`${t.copy} : ${text}`);
     } catch {
-      alert("Copie impossible pour le moment.");
+      alert(t.copyError);
     }
   };
+
+  const contactEmail = "contact.association.ennour@gmail.com";
+  const contactPhone = "+212 5 29 88 10 03";
 
   const pageClass = isDark
     ? "min-h-screen scroll-smooth overflow-x-hidden bg-slate-950 text-slate-100"
@@ -718,17 +723,44 @@ export default function App() {
             <p className={isDark ? "mt-4 text-base leading-7 text-slate-300 sm:mt-5 sm:text-lg sm:leading-8" : "mt-4 text-base leading-7 text-slate-600 sm:mt-5 sm:text-lg sm:leading-8"}>{t.contactText}</p>
 
             <div className="mt-8 space-y-5">
-              <div className={isDark ? "flex items-center gap-4 rounded-2xl bg-white/5 p-5 ring-1 ring-white/10" : "flex items-center gap-4 rounded-2xl bg-slate-50 p-5"}>
-                <MailIcon className="h-6 w-6 text-orange-500" />
-                <span className={isDark ? "break-all text-sm text-slate-200 sm:text-base" : "break-all text-sm text-slate-700 sm:text-base"}>contact.association.ennour@gmail.com</span>
+              <div className={isDark ? "flex flex-col items-start gap-3 rounded-2xl bg-white/5 p-5 ring-1 ring-white/10 sm:flex-row sm:items-center sm:gap-4" : "flex flex-col items-start gap-3 rounded-2xl bg-slate-50 p-5 sm:flex-row sm:items-center sm:gap-4"}>
+                <div className="flex min-w-0 flex-1 items-center gap-4">
+                  <MailIcon className="h-6 w-6 shrink-0 text-orange-500" />
+                  <span className={isDark ? "break-all text-sm text-slate-200 sm:text-base" : "break-all text-sm text-slate-700 sm:text-base"}>{contactEmail}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => copyToClipboard(contactEmail)}
+                  className="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-orange-500 px-3 py-2 text-xs font-semibold text-white transition hover:bg-orange-600 sm:w-auto"
+                >
+                  <CopyIcon className="h-4 w-4" /> {t.copy}
+                </button>
               </div>
-              <div className={isDark ? "flex items-center gap-4 rounded-2xl bg-white/5 p-5 ring-1 ring-white/10" : "flex items-center gap-4 rounded-2xl bg-slate-50 p-5"}>
-                <PhoneIcon className="h-6 w-6 text-green-700" />
-                <span className={isDark ? "text-slate-200" : "text-slate-700"}>+212 5 29 88 10 03</span>
+              <div className={isDark ? "flex flex-col items-start gap-3 rounded-2xl bg-white/5 p-5 ring-1 ring-white/10 sm:flex-row sm:items-center sm:gap-4" : "flex flex-col items-start gap-3 rounded-2xl bg-slate-50 p-5 sm:flex-row sm:items-center sm:gap-4"}>
+                <div className="flex min-w-0 flex-1 items-center gap-4">
+                  <PhoneIcon className="h-6 w-6 shrink-0 text-green-700" />
+                  <span className={isDark ? "text-slate-200" : "text-slate-700"}>{contactPhone}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => copyToClipboard(contactPhone)}
+                  className="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-orange-500 px-3 py-2 text-xs font-semibold text-white transition hover:bg-orange-600 sm:w-auto"
+                >
+                  <CopyIcon className="h-4 w-4" /> {t.copy}
+                </button>
               </div>
-              <div className={isDark ? "flex items-center gap-4 rounded-2xl bg-white/5 p-5 ring-1 ring-white/10" : "flex items-center gap-4 rounded-2xl bg-slate-50 p-5"}>
-                <MapPinIcon className="h-6 w-6 text-orange-500" />
-                <span className={isDark ? "break-words text-sm text-slate-200 sm:text-base" : "break-words text-sm text-slate-700 sm:text-base"}>{t.mapLocation}</span>
+              <div className={isDark ? "flex flex-col items-start gap-3 rounded-2xl bg-white/5 p-5 ring-1 ring-white/10 sm:flex-row sm:items-center sm:gap-4" : "flex flex-col items-start gap-3 rounded-2xl bg-slate-50 p-5 sm:flex-row sm:items-center sm:gap-4"}>
+                <div className="flex min-w-0 flex-1 items-center gap-4">
+                  <MapPinIcon className="h-6 w-6 shrink-0 text-orange-500" />
+                  <span className={isDark ? "break-words text-sm text-slate-200 sm:text-base" : "break-words text-sm text-slate-700 sm:text-base"}>{t.mapLocation}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => copyToClipboard(t.mapLocation)}
+                  className="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-orange-500 px-3 py-2 text-xs font-semibold text-white transition hover:bg-orange-600 sm:w-auto"
+                >
+                  <CopyIcon className="h-4 w-4" /> {t.copy}
+                </button>
               </div>
             </div>
           </div>
