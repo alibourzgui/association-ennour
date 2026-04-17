@@ -1729,7 +1729,7 @@ export default function App() {
                 </a>
 
                 <a
-                  href="https://wa.me/212613196865"
+                  href="https://wa.me/212"
                   target="_blank"
                   rel="noreferrer"
                   aria-label="WhatsApp"
