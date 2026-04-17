@@ -317,6 +317,11 @@ export default function App() {
   const activities = activitiesData[lang];
   const isArabic = lang === "ar";
 
+  const whatsappMessage = encodeURIComponent(
+    "السلام عليكم، أود التواصل مع جمعية النور للتنمية والأعمال الخيرية."
+  );
+  const whatsappLink = `https://wa.me/212613196865?text=${whatsappMessage}`;
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -763,6 +768,17 @@ export default function App() {
           </div>
         </div>
       </section>
+
+      <a
+        href={whatsappLink}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="WhatsApp"
+        className="fixed bottom-5 right-5 z-[999] flex items-center gap-2 rounded-full bg-green-500 px-4 py-3 text-white shadow-2xl transition hover:scale-105 hover:bg-green-600"
+      >
+        <WhatsAppIcon className="h-5 w-5 text-white" />
+        <span className="hidden sm:inline">WhatsApp</span>
+      </a>
 
       <footer className="relative overflow-hidden bg-slate-950 text-white">
         <div className="absolute inset-0 bg-gradient-to-r from-green-900/30 via-transparent to-orange-900/20" />
