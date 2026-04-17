@@ -115,8 +115,33 @@ const content = {
     footerNav: "Navigation",
     footerContact: "Contact & Réseaux",
     footerContactBtn: "Nous contacter",
+    socialFacebook: "Facebook",
+    socialWhatsApp: "WhatsApp",
     footerRights: "© 2026 Association Ennour pour le Développement et la Charité. Tous droits réservés.",
     footerMotto: "Solidarité • Confiance • Engagement",
+    footerCreditLabel: "Site réalisé par",
+    footerCreditName: "Abdelali Bourzgui",
+    footerEmail: "contact.association.ennour@gmail.com",
+    footerPhone1: "+212 5 29 88 10 03",
+    footerPhone2: "+212 6 13 19 68 65",
+    footerCity: "Settat, Maroc",
+    assistantOpen: "Assistant AI",
+    assistantTitle: "Assistant de l'association",
+    assistantPlaceholder: "Posez votre question...",
+    assistantSend: "Envoyer",
+    assistantWelcome: "Bonjour, je peux vous aider concernant les dons, le contact, la localisation et les activités.",
+    assistantQuick1: "Comment faire un don ?",
+    assistantQuick2: "Comment vous contacter ?",
+    assistantQuick3: "Où se trouve l'association ?",
+    assistantQuick4: "Quelles sont vos activités ?",
+    assistantFallback: "Je n'ai pas bien compris. Vous pouvez reformuler, ou nous contacter par WhatsApp ou email.",
+    assistantDonateReply: "Pour faire un don, utilisez le RIB 230610566047522100160028 (CIH Bank).",
+    assistantContactReply: "Vous pouvez nous contacter par email ou téléphone.",
+    assistantLocationReply: "Notre localisation:",
+    assistantActivitiesReply: "Voici quelques activités principales de l'association:",
+    assistantTyping: "L'assistant écrit...",
+    assistantGreetingReply: "Bonjour et bienvenue. Comment puis-je vous aider aujourd'hui ?",
+    assistantThanksReply: "Avec plaisir. Si vous voulez, je peux aussi vous aider pour le don, le contact ou la localisation.",
     mapLocation: "Maison des jeunes sidi Abdelkrim settat",
   },
   ar: {
@@ -184,8 +209,33 @@ const content = {
     footerNav: "روابط سريعة",
     footerContact: "التواصل والشبكات",
     footerContactBtn: "تواصل معنا",
+    socialFacebook: "فيسبوك",
+    socialWhatsApp: "واتساب",
     footerRights: "© 2026 جمعية النور للتنمية والأعمال الخيرية. جميع الحقوق محفوظة.",
     footerMotto: "تضامن • ثقة • التزام",
+    footerCreditLabel: "تم إنجاز الموقع بواسطة",
+    footerCreditName: "Abdelali Bourzgui",
+    footerEmail: "contact.association.ennour@gmail.com",
+    footerPhone1: "+212 5 29 88 10 03",
+    footerPhone2: "+212 6 13 19 68 65",
+    footerCity: "سطات، المغرب",
+    assistantOpen: "مساعد AI",
+    assistantTitle: "مساعد الجمعية",
+    assistantPlaceholder: "اكتب سؤالك...",
+    assistantSend: "إرسال",
+    assistantWelcome: "مرحبًا، يمكنني مساعدتك بخصوص التبرع، التواصل، الموقع، والأنشطة.",
+    assistantQuick1: "كيف يمكنني التبرع؟",
+    assistantQuick2: "كيف أتواصل معكم؟",
+    assistantQuick3: "أين توجد الجمعية؟",
+    assistantQuick4: "ما هي أنشطتكم؟",
+    assistantFallback: "لم أفهم سؤالك جيدًا. يمكنك إعادة الصياغة أو التواصل معنا عبر واتساب أو البريد الإلكتروني.",
+    assistantDonateReply: "للتبرع، استعملوا رقم الحساب 230610566047522100160028 (CIH Bank).",
+    assistantContactReply: "يمكنكم التواصل معنا عبر البريد الإلكتروني أو الهاتف.",
+    assistantLocationReply: "موقع الجمعية:",
+    assistantActivitiesReply: "هذه بعض أنشطة الجمعية:",
+    assistantTyping: "المساعد يكتب...",
+    assistantGreetingReply: "مرحبًا بك. كيف أستطيع مساعدتك اليوم؟",
+    assistantThanksReply: "على الرحب والسعة. إذا أردت، يمكنني مساعدتك أيضًا بخصوص التبرع أو التواصل أو الموقع.",
     mapLocation: "جمعية النور للتنمية والأعمال الخيرية (المكتب المركزي سطات)، دار الشباب، سطات 26000",
   },
 };
@@ -310,14 +360,50 @@ function ThemeToggleIcon({ isDark }) {
   );
 }
 
+function ChatIcon({ className = "h-5 w-5" }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M4 5a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H9l-4.5 3V16A3 3 0 0 1 2 13V5h2Zm4.5 3.25a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5Zm3.5 0a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5Zm3.5 0a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5Z" />
+    </svg>
+  );
+}
+
 export default function App() {
   const [isDark, setIsDark] = React.useState(false);
   const [lang, setLang] = React.useState("fr");
   const [form, setForm] = React.useState({ name: "", email: "", message: "" });
+  const [isAssistantOpen, setIsAssistantOpen] = React.useState(false);
+  const [assistantInput, setAssistantInput] = React.useState("");
+  const [assistantMessages, setAssistantMessages] = React.useState([]);
+  const [isAssistantTyping, setIsAssistantTyping] = React.useState(false);
+  const assistantScrollRef = React.useRef(null);
+  const assistantAbortRef = React.useRef(null);
+
+  const aiApiKey = import.meta.env.VITE_AI_API_KEY;
+  const aiBaseUrl = import.meta.env.VITE_AI_BASE_URL || "https://api.openai.com/v1";
+  const aiModel = import.meta.env.VITE_AI_MODEL || "gpt-4o-mini";
+  const aiEndpoint = import.meta.env.VITE_ASSISTANT_ENDPOINT || "/api/assistant";
 
   const t = content[lang];
   const activities = activitiesData[lang];
   const isArabic = lang === "ar";
+
+  React.useEffect(() => {
+    setAssistantMessages([{ role: "assistant", text: t.assistantWelcome }]);
+  }, [lang, t.assistantWelcome]);
+
+  React.useEffect(() => {
+    if (!assistantScrollRef.current) return;
+    assistantScrollRef.current.scrollTop = assistantScrollRef.current.scrollHeight;
+  }, [assistantMessages, isAssistantTyping, isAssistantOpen]);
+
+  React.useEffect(() => {
+    return () => {
+      if (assistantAbortRef.current) {
+        assistantAbortRef.current.abort();
+      }
+    };
+  }, []);
 
   const whatsappMessage = encodeURIComponent(
     "السلام عليكم، أود التواصل مع جمعية النور للتنمية والأعمال الخيرية."
@@ -345,7 +431,201 @@ export default function App() {
   };
 
   const contactEmail = "contact.association.ennour@gmail.com";
-  const contactPhone = "+212 5 29 88 10 03";
+  const contactPhone1 = t.footerPhone1;
+  const contactPhone2 = t.footerPhone2;
+  const quickQuestions = [t.assistantQuick1, t.assistantQuick2, t.assistantQuick3, t.assistantQuick4];
+
+  const normalizeText = (value) => {
+    const base = String(value || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+    try {
+      return base
+        .replace(/[^\p{L}\p{N}\s]/gu, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    } catch {
+      // Fallback for browsers that don't support Unicode property escapes.
+      return base
+        .replace(/[^a-z0-9\u0600-\u06FF\s]/gi, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+  };
+
+  const getAssistantReply = (question) => {
+    const q = normalizeText(question);
+
+    const hasAny = (keywords) => keywords.some((k) => q.includes(k));
+    const normalizedQuick1 = normalizeText(t.assistantQuick1);
+    const normalizedQuick2 = normalizeText(t.assistantQuick2);
+    const normalizedQuick3 = normalizeText(t.assistantQuick3);
+    const normalizedQuick4 = normalizeText(t.assistantQuick4);
+    const isShortGreeting = ["hi", "hey", "hello", "bonjour", "bonsoir", "salut", "salam", "slm", "slt", "مرحبا", "سلام", "اهلا"].includes(q);
+
+    // Ensure recommended quick questions always return language-correct local replies.
+    if (q === normalizedQuick1) {
+      return `${t.assistantDonateReply} ${t.bankTitle}: ${t.rib} 230610566047522100160028 - ${t.bank} Cih Bank.`;
+    }
+
+    if (q === normalizedQuick2) {
+      return `${t.assistantContactReply} ${t.footerEmail} | ${t.footerPhone1} | ${t.footerPhone2}`;
+    }
+
+    if (q === normalizedQuick3) {
+      return `${t.assistantLocationReply} ${t.mapLocation}`;
+    }
+
+    if (q === normalizedQuick4) {
+      return `${t.assistantActivitiesReply} ${activities.map((a) => a.title).join(" • ")}`;
+    }
+
+    if (isShortGreeting || hasAny(["hi ", "hello ", "bonjour ", "salut ", "salam ", "slm ", "مرحبا", "السلام", "اهلا"])) {
+      return t.assistantGreetingReply;
+    }
+
+    if (hasAny(["merci", "thanks", "thank you", "chokran", "شكرا", "thx"])) {
+      return t.assistantThanksReply;
+    }
+
+    if (hasAny(["don", "تبرع", "virement", "rib", "bank", "banque", "بنكي", "حساب", "تبرع", "ntbr3", "n9der ntber3", "compte"])) {
+      return `${t.assistantDonateReply} ${t.bankTitle}: ${t.rib} 230610566047522100160028 - ${t.bank} Cih Bank.`;
+    }
+
+    if (hasAny(["contact", "email", "mail", "phone", "telephone", "whatsapp", "twasol", "تواصل", "اتصال", "num", "numero", "n3yt", "n3ayet", "tlf", "tel"])) {
+      return `${t.assistantContactReply} ${t.footerEmail} | ${t.footerPhone1} | ${t.footerPhone2}`;
+    }
+
+    if (hasAny(["ou", "adresse", "location", "map", "adresse", "fin", "فين", "اين", "أين", "موقع", "fayn", "fain", "blassa", "address"])) {
+      return `${t.assistantLocationReply} ${t.mapLocation}`;
+    }
+
+    if (hasAny(["activite", "activites", "actions", "projet", "projets", "نشاط", "انشطة", "أنشطة", "انشطتكم", "نشاطات", "ach katdir", "ach katdiro", "program"])) {
+      return `${t.assistantActivitiesReply} ${activities.map((a) => a.title).join(" • ")}`;
+    }
+
+    return t.assistantFallback;
+  };
+
+  const getAssociationContext = () => {
+    const activitiesTitles = activities.map((a) => a.title).join(" | ");
+    return [
+      `Association: ${t.brandTitle}`,
+      `Donation RIB: 230610566047522100160028`,
+      `Bank: Cih Bank`,
+      `Email: ${t.footerEmail}`,
+      `Phone1: ${t.footerPhone1}`,
+      `Phone2: ${t.footerPhone2}`,
+      `Location: ${t.mapLocation}`,
+      `Activities: ${activitiesTitles}`,
+    ].join("\n");
+  };
+
+  const askAssistantApi = async (question) => {
+    const recentHistory = assistantMessages
+      .slice(-6)
+      .map((m) => ({ role: m.role, content: m.text }));
+
+    if (aiEndpoint) {
+      try {
+        const response = await fetch(aiEndpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            question,
+            lang,
+            context: getAssociationContext(),
+            history: recentHistory,
+          }),
+        });
+
+        if (!response.ok) return null;
+        const data = await response.json();
+        const text = (data?.reply || data?.answer || "").trim();
+        return text || null;
+      } catch {
+        return null;
+      }
+    }
+
+    if (!aiApiKey) return null;
+
+    if (assistantAbortRef.current) {
+      assistantAbortRef.current.abort();
+    }
+
+    const controller = new AbortController();
+    assistantAbortRef.current = controller;
+
+    const timeoutId = setTimeout(() => controller.abort(), 12000);
+
+    try {
+      const response = await fetch(`${aiBaseUrl}/chat/completions`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${aiApiKey}`,
+        },
+        body: JSON.stringify({
+          model: aiModel,
+          temperature: 0.2,
+          messages: [
+            {
+              role: "system",
+              content:
+                "You are an assistant for a Moroccan charity website. Reply in the user's language (Darija/French/Arabic). For association questions, prioritize exact facts from provided context only. For general logical questions, give clear short answers.",
+            },
+            {
+              role: "system",
+              content: getAssociationContext(),
+            },
+            ...recentHistory,
+            {
+              role: "user",
+              content: question,
+            },
+          ],
+        }),
+        signal: controller.signal,
+      });
+
+      if (!response.ok) {
+        return null;
+      }
+
+      const data = await response.json();
+      const text = data?.choices?.[0]?.message?.content?.trim();
+      return text || null;
+    } catch {
+      return null;
+    } finally {
+      clearTimeout(timeoutId);
+      assistantAbortRef.current = null;
+    }
+  };
+
+  const askAssistant = async (raw) => {
+    const question = raw.trim().slice(0, 300);
+    if (!question || isAssistantTyping) return;
+
+    setAssistantMessages((prev) => [...prev, { role: "user", text: question }]);
+    setAssistantInput("");
+    setIsAssistantTyping(true);
+
+    // Prefer deterministic local replies for known association intents
+    // (donation/contact/location/activities/greetings), then fallback to API.
+    const localReply = getAssistantReply(question);
+    let reply = localReply;
+
+    if (localReply === t.assistantFallback) {
+      const apiReply = await askAssistantApi(question);
+      reply = apiReply || localReply;
+    }
+
+    setAssistantMessages((prev) => [...prev, { role: "assistant", text: reply }]);
+    setIsAssistantTyping(false);
+  };
 
   const pageClass = isDark
     ? "min-h-screen scroll-smooth overflow-x-hidden bg-slate-950 text-slate-100"
@@ -386,8 +666,8 @@ export default function App() {
               <p
                 className={
                   isDark
-                    ? "hidden text-xs text-slate-400 sm:block sm:text-sm"
-                    : "hidden text-xs text-slate-500 sm:block sm:text-sm"
+                    ? "mt-0.5 text-[10px] text-orange-300 sm:text-sm"
+                    : "mt-0.5 text-[10px] text-orange-600 sm:text-sm"
                 }
               >
                 {t.brandSubtitle}
@@ -726,7 +1006,13 @@ export default function App() {
               <div className={isDark ? "flex flex-col items-start gap-3 rounded-2xl bg-white/5 p-5 ring-1 ring-white/10 sm:flex-row sm:items-center sm:gap-4" : "flex flex-col items-start gap-3 rounded-2xl bg-slate-50 p-5 sm:flex-row sm:items-center sm:gap-4"}>
                 <div className="flex min-w-0 flex-1 items-center gap-4">
                   <MailIcon className="h-6 w-6 shrink-0 text-orange-500" />
-                  <span dir="ltr" className={isDark ? "break-all text-left text-sm text-slate-200 sm:text-base" : "break-all text-left text-sm text-slate-700 sm:text-base"}>{contactEmail}</span>
+                  <a
+                    href={`mailto:${contactEmail}`}
+                    dir="ltr"
+                    className={isDark ? "break-all text-left text-sm text-slate-200 transition hover:text-white sm:text-base" : "break-all text-left text-sm text-slate-700 transition hover:text-slate-900 sm:text-base"}
+                  >
+                    {contactEmail}
+                  </a>
                 </div>
                 <button
                   type="button"
@@ -739,11 +1025,36 @@ export default function App() {
               <div className={isDark ? "flex flex-col items-start gap-3 rounded-2xl bg-white/5 p-5 ring-1 ring-white/10 sm:flex-row sm:items-center sm:gap-4" : "flex flex-col items-start gap-3 rounded-2xl bg-slate-50 p-5 sm:flex-row sm:items-center sm:gap-4"}>
                 <div className="flex min-w-0 flex-1 items-center gap-4">
                   <PhoneIcon className="h-6 w-6 shrink-0 text-green-700" />
-                  <span dir="ltr" className={isDark ? "text-left text-slate-200" : "text-left text-slate-700"}>{contactPhone}</span>
+                  <a
+                    href={`tel:${contactPhone1.replace(/\s/g, "")}`}
+                    dir="ltr"
+                    className={isDark ? "text-left text-slate-200 transition hover:text-white" : "text-left text-slate-700 transition hover:text-slate-900"}
+                  >
+                    {contactPhone1}
+                  </a>
                 </div>
                 <button
                   type="button"
-                  onClick={() => copyToClipboard(contactPhone)}
+                  onClick={() => copyToClipboard(contactPhone1)}
+                  className="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-orange-500 px-3 py-2 text-xs font-semibold text-white transition hover:bg-orange-600 sm:w-auto"
+                >
+                  <CopyIcon className="h-4 w-4" /> {t.copy}
+                </button>
+              </div>
+              <div className={isDark ? "flex flex-col items-start gap-3 rounded-2xl bg-white/5 p-5 ring-1 ring-white/10 sm:flex-row sm:items-center sm:gap-4" : "flex flex-col items-start gap-3 rounded-2xl bg-slate-50 p-5 sm:flex-row sm:items-center sm:gap-4"}>
+                <div className="flex min-w-0 flex-1 items-center gap-4">
+                  <PhoneIcon className="h-6 w-6 shrink-0 text-green-700" />
+                  <a
+                    href={`tel:${contactPhone2.replace(/\s/g, "")}`}
+                    dir="ltr"
+                    className={isDark ? "text-left text-slate-200 transition hover:text-white" : "text-left text-slate-700 transition hover:text-slate-900"}
+                  >
+                    {contactPhone2}
+                  </a>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => copyToClipboard(contactPhone2)}
                   className="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-orange-500 px-3 py-2 text-xs font-semibold text-white transition hover:bg-orange-600 sm:w-auto"
                 >
                   <CopyIcon className="h-4 w-4" /> {t.copy}
@@ -812,31 +1123,161 @@ export default function App() {
         <span className="hidden sm:inline">WhatsApp</span>
       </a>
 
+      {isAssistantOpen ? (
+        <div
+          className={
+            isDark
+              ? "fixed inset-x-3 bottom-20 top-24 z-[1000] flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-slate-900 shadow-2xl sm:inset-x-auto sm:bottom-24 sm:right-5 sm:top-auto sm:h-[620px] sm:w-[430px]"
+              : "fixed inset-x-3 bottom-20 top-24 z-[1000] flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl sm:inset-x-auto sm:bottom-24 sm:right-5 sm:top-auto sm:h-[620px] sm:w-[430px]"
+          }
+        >
+          <div className={isDark ? "flex items-center justify-between border-b border-white/10 px-4 py-3" : "flex items-center justify-between border-b border-slate-200 px-4 py-3"}>
+            <div className="flex items-center gap-2">
+              <span className="flex h-7 w-7 items-center justify-center overflow-hidden rounded-lg bg-white shadow-sm">
+                <img src="/logo.jpg" alt="Logo Association Ennour" className="h-full w-full object-contain" />
+              </span>
+              <p className={isDark ? "text-sm font-semibold text-white" : "text-sm font-semibold text-slate-900"}>{t.assistantTitle}</p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsAssistantOpen(false)}
+              aria-label={lang === "ar" ? "إغلاق نافذة المساعد" : "Fermer la fenêtre de l'assistant"}
+              title={lang === "ar" ? "إغلاق" : "Fermer"}
+              className={
+                isDark
+                  ? "inline-flex h-11 min-w-[102px] touch-manipulation items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 text-sm font-semibold text-slate-200 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500/60 sm:h-10 sm:min-w-0 sm:w-10 sm:px-0"
+                  : "inline-flex h-11 min-w-[102px] touch-manipulation items-center justify-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm font-semibold text-slate-600 transition hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600/40 sm:h-10 sm:min-w-0 sm:w-10 sm:px-0"
+              }
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="h-4 w-4 shrink-0" aria-hidden="true">
+                <path strokeLinecap="round" d="M6 6L18 18M18 6L6 18" />
+              </svg>
+              <span className="sm:hidden">{lang === "ar" ? "إغلاق" : "Fermer"}</span>
+            </button>
+          </div>
+
+          <div ref={assistantScrollRef} className="flex-1 space-y-2 overflow-y-auto px-4 py-3">
+            {assistantMessages.map((msg, index) => (
+              msg.role === "user" ? (
+                <div
+                  key={`${msg.role}-${index}`}
+                  className="ml-auto w-fit max-w-[88%] rounded-2xl bg-green-700 px-3 py-2 text-sm text-white"
+                >
+                  {msg.text}
+                </div>
+              ) : (
+                <div key={`${msg.role}-${index}`} className="max-w-[92%]">
+                  <div className="mb-1 flex items-center gap-2 px-1">
+                    <span className="flex h-6 w-6 items-center justify-center overflow-hidden rounded-full bg-white shadow-sm">
+                      <img src="/logo.jpg" alt="Logo Association Ennour" className="h-full w-full object-contain" />
+                    </span>
+                    <span className={isDark ? "text-[11px] font-semibold text-slate-300" : "text-[11px] font-semibold text-slate-500"}>
+                      {t.assistantTitle}
+                    </span>
+                  </div>
+                  <div
+                    className={
+                      isDark
+                        ? "w-fit max-w-[88%] rounded-2xl bg-white/10 px-3 py-2 text-sm text-slate-100"
+                        : "w-fit max-w-[88%] rounded-2xl bg-slate-100 px-3 py-2 text-sm text-slate-800"
+                    }
+                  >
+                    {msg.text}
+                  </div>
+                </div>
+              )
+            ))}
+            {isAssistantTyping && (
+              <div className={isDark ? "w-fit max-w-[88%] rounded-2xl bg-white/10 px-3 py-2 text-xs text-slate-300" : "w-fit max-w-[88%] rounded-2xl bg-slate-100 px-3 py-2 text-xs text-slate-600"}>
+                {t.assistantTyping}
+              </div>
+            )}
+          </div>
+
+          <div className="px-4 pb-3">
+            <div className="mb-2 flex flex-wrap gap-2">
+              {quickQuestions.map((q) => (
+                <button
+                  key={q}
+                  type="button"
+                  onClick={() => askAssistant(q)}
+                  disabled={isAssistantTyping}
+                  className={isDark ? "rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-200 transition hover:bg-white/10 disabled:opacity-60" : "rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs text-slate-700 transition hover:bg-slate-100 disabled:opacity-60"}
+                >
+                  {q}
+                </button>
+              ))}
+            </div>
+
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                askAssistant(assistantInput);
+              }}
+              className="flex items-center gap-2"
+            >
+              <input
+                value={assistantInput}
+                onChange={(e) => setAssistantInput(e.target.value)}
+                placeholder={t.assistantPlaceholder}
+                maxLength={300}
+                disabled={isAssistantTyping}
+                className={isDark ? "w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none placeholder:text-slate-500 focus:border-green-500" : "w-full rounded-xl border border-slate-200 px-3 py-2 text-sm text-slate-800 outline-none focus:border-green-600"}
+              />
+              <button
+                type="submit"
+                disabled={isAssistantTyping || !assistantInput.trim()}
+                className="rounded-xl bg-green-700 px-3.5 py-2 text-xs font-semibold text-white transition hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {t.assistantSend}
+              </button>
+            </form>
+          </div>
+        </div>
+      ) : (
+        <button
+          type="button"
+          onClick={() => setIsAssistantOpen(true)}
+          aria-label={t.assistantOpen}
+          title={t.assistantOpen}
+          className={
+            isDark
+              ? "fixed bottom-20 right-4 z-[1000] inline-flex h-14 w-14 items-center justify-center rounded-full border border-white/10 bg-slate-900 text-white shadow-2xl transition hover:scale-105 hover:bg-slate-800 sm:bottom-24 sm:right-5"
+              : "fixed bottom-20 right-4 z-[1000] inline-flex h-14 w-14 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-800 shadow-2xl transition hover:scale-105 hover:bg-slate-50 sm:bottom-24 sm:right-5"
+          }
+        >
+          <span className="relative">
+            <ChatIcon className={isDark ? "h-5 w-5 text-green-300" : "h-5 w-5 text-green-700"} />
+            <span className={isDark ? "absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full bg-green-500 ring-2 ring-slate-900" : "absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full bg-green-500 ring-2 ring-white"} />
+          </span>
+        </button>
+      )}
+
       <footer className="relative overflow-hidden bg-slate-950 text-white">
         <div className="absolute inset-0 bg-gradient-to-r from-green-900/30 via-transparent to-orange-900/20" />
-        <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-14">
-          <div className="grid gap-10 border-b border-white/10 pb-10 md:grid-cols-4">
-            <div className="md:col-span-2">
-              <div className="flex items-center gap-3">
+        <div className="relative mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14">
+          <div className="grid gap-8 border-b border-white/10 pb-8 sm:pb-10 md:grid-cols-4">
+            <div className="text-center md:col-span-2 md:text-left">
+              <div className="flex items-center justify-center gap-3 md:justify-start">
                 <div>
                   <h3 className="text-2xl font-bold text-white">{t.brandTitle}</h3>
                   <p className="text-sm text-slate-400">{t.brandSubtitle}</p>
                 </div>
               </div>
 
-              <p className="mt-5 max-w-xl text-sm leading-7 text-slate-300">{t.footerText}</p>
+              <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-slate-300 md:mx-0">{t.footerText}</p>
 
-              <div className="mt-6 flex flex-wrap gap-3">
-                <a href="#don" className="rounded-2xl bg-orange-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-orange-600">
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <a href="#don" className="inline-flex w-full items-center justify-center rounded-2xl bg-orange-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-orange-600 sm:w-auto">
                   {t.donateBtn}
                 </a>
-                <a href="#contact" className="rounded-2xl border border-white/15 px-5 py-3 text-sm font-semibold text-white transition hover:border-green-400 hover:text-green-300">
+                <a href="#contact" className="inline-flex w-full items-center justify-center rounded-2xl border border-white/15 px-5 py-3 text-sm font-semibold text-white transition hover:border-green-400 hover:text-green-300 sm:w-auto">
                   {t.footerContactBtn}
                 </a>
               </div>
             </div>
 
-            <div>
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-center md:rounded-none md:border-0 md:bg-transparent md:p-0 md:text-left">
               <h4 className="text-lg font-semibold text-orange-400">{t.footerNav}</h4>
               <ul className="mt-5 space-y-3 text-sm text-slate-300">
                 <li><a href="#accueil" className="transition hover:text-green-400">{t.nav[0]}</a></li>
@@ -847,24 +1288,46 @@ export default function App() {
               </ul>
             </div>
 
-            <div>
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-center md:rounded-none md:border-0 md:bg-transparent md:p-0 md:text-left">
               <h4 className="text-lg font-semibold text-orange-400">{t.footerContact}</h4>
               <div className="mt-5 space-y-3 text-sm text-slate-300">
-                <p>contact.association.ennour@gmail.com</p>
-                <p>+212 5 29 88 10 03</p>
-                <p>+212 6 13 19 68 65</p>
-                <p>Settat, Maroc</p>
+                <a
+                  href={`mailto:${t.footerEmail}`}
+                  className="flex items-center justify-center gap-2 transition hover:text-white md:justify-start"
+                >
+                  <MailIcon className="h-4 w-4 shrink-0 text-orange-400" />
+                  <span dir="ltr" className="break-all">{t.footerEmail}</span>
+                </a>
+                <a
+                  href={`tel:${t.footerPhone1.replace(/\s/g, "")}`}
+                  className="flex items-center justify-center gap-2 transition hover:text-white md:justify-start"
+                >
+                  <PhoneIcon className="h-4 w-4 shrink-0 text-green-400" />
+                  <span dir="ltr">{t.footerPhone1}</span>
+                </a>
+                <a
+                  href={`tel:${t.footerPhone2.replace(/\s/g, "")}`}
+                  className="flex items-center justify-center gap-2 transition hover:text-white md:justify-start"
+                >
+                  <PhoneIcon className="h-4 w-4 shrink-0 text-green-400" />
+                  <span dir="ltr">{t.footerPhone2}</span>
+                </a>
+                <p className="flex items-center justify-center gap-2 md:justify-start">
+                  <MapPinIcon className="h-4 w-4 shrink-0 text-orange-400" />
+                  <span>{t.footerCity}</span>
+                </p>
               </div>
 
-              <div className="mt-6 flex gap-4">
+              <div className="mt-6 flex flex-wrap justify-center gap-3 md:justify-start">
                 <a
                   href="https://www.facebook.com/Associationennour9/"
                   target="_blank"
                   rel="noreferrer"
                   aria-label="Facebook"
-                  className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 transition hover:-translate-y-1 hover:bg-blue-600"
+                  className="inline-flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-sm text-white transition hover:-translate-y-1 hover:bg-blue-600"
                 >
-                  <FacebookIcon className="h-6 w-6 text-white" />
+                  <FacebookIcon className="h-5 w-5 text-white" />
+                  <span>{t.socialFacebook}</span>
                 </a>
 
                 <a
@@ -872,18 +1335,24 @@ export default function App() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label="WhatsApp"
-                  className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 transition hover:-translate-y-1 hover:bg-green-500"
+                  className="inline-flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-sm text-white transition hover:-translate-y-1 hover:bg-green-500"
                 >
-                  <WhatsAppIcon className="h-6 w-6 text-white" />
+                  <WhatsAppIcon className="h-5 w-5 text-white" />
+                  <span>{t.socialWhatsApp}</span>
                 </a>
               </div>
             </div>
           </div>
 
-          <div className="flex flex-col gap-3 pt-6 text-sm text-slate-400 md:flex-row md:items-center md:justify-between">
-            <p className="text-center md:text-start">{t.footerRights}</p>
-            <p className="text-center md:text-start">{t.footerMotto}</p>
+          <div className="flex flex-col items-center gap-2 pt-6 text-center text-sm text-slate-400 md:flex-row md:items-center md:justify-between md:text-left">
+            <p>{t.footerRights}</p>
+            <p>{t.footerMotto}</p>
           </div>
+          <p className="mt-4 border-t border-white/10 pt-4 text-center text-[11px] sm:text-xs">
+            <span className="text-slate-500">{t.footerCreditLabel}</span>
+            <span className="mx-1 text-slate-600">•</span>
+            <span className="font-semibold tracking-wide text-orange-300">{t.footerCreditName}</span>
+          </p>
         </div>
       </footer>
     </div>
