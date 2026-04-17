@@ -343,8 +343,8 @@ export default function App() {
   };
 
   const pageClass = isDark
-    ? "min-h-screen scroll-smooth bg-slate-950 text-slate-100"
-    : "min-h-screen scroll-smooth bg-white text-slate-800";
+    ? "min-h-screen scroll-smooth overflow-x-hidden bg-slate-950 text-slate-100"
+    : "min-h-screen scroll-smooth overflow-x-hidden bg-white text-slate-800";
 
   const headerClass = isDark
     ? "sticky top-0 z-50 border-b border-white/10 bg-slate-950/90 backdrop-blur"
@@ -361,7 +361,7 @@ export default function App() {
   return (
     <div className={pageClass} dir={isArabic ? "rtl" : "ltr"}>
       <header className={headerClass}>
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-3 sm:gap-3 sm:px-6 sm:py-4">
           <div className="flex min-w-0 flex-1 items-center gap-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white shadow-sm sm:h-12 sm:w-12">
               <img src="/logo.jpg" alt="Logo" className="h-full w-full object-contain" />
@@ -371,8 +371,8 @@ export default function App() {
               <h1
                 className={
                   isDark
-                    ? "truncate text-sm font-bold text-green-400 sm:text-lg"
-                    : "truncate text-sm font-bold text-green-700 sm:text-lg"
+                    ? "truncate text-xs font-bold text-green-400 sm:text-lg"
+                    : "truncate text-xs font-bold text-green-700 sm:text-lg"
                 }
               >
                 {t.brandTitle}
@@ -399,14 +399,14 @@ export default function App() {
             <a href="#contact" className="transition hover:text-green-500">{t.nav[5]}</a>
           </nav>
 
-          <div className="ml-2 flex shrink-0 items-center gap-2 sm:gap-3">
+            <div className="ml-1 flex shrink-0 items-center gap-2 sm:ml-2 sm:gap-3">
             <button
               type="button"
               onClick={() => setLang((prev) => (prev === "fr" ? "ar" : "fr"))}
               className={
                 isDark
-                  ? "rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-slate-100 transition hover:bg-white/10 sm:px-4 sm:py-3 sm:text-sm"
-                  : "rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 sm:px-4 sm:py-3 sm:text-sm"
+                  ? "rounded-xl border border-white/10 bg-white/5 px-2.5 py-2 text-xs font-semibold text-slate-100 transition hover:bg-white/10 sm:px-4 sm:py-3 sm:text-sm"
+                  : "rounded-xl border border-slate-200 bg-white px-2.5 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 sm:px-4 sm:py-3 sm:text-sm"
               }
             >
               {lang === "fr" ? "AR" : "FR"}
@@ -418,8 +418,8 @@ export default function App() {
               aria-label="Toggle dark mode"
               className={
                 isDark
-                  ? "flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-yellow-300 transition hover:bg-white/10 sm:h-12 sm:w-12"
-                  : "flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 transition hover:bg-slate-50 sm:h-12 sm:w-12"
+                  ? "flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-yellow-300 transition hover:bg-white/10 sm:h-12 sm:w-12"
+                  : "flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 transition hover:bg-slate-50 sm:h-12 sm:w-12"
               }
             >
               <ThemeToggleIcon isDark={isDark} />
@@ -536,13 +536,13 @@ export default function App() {
         </div>
       </section>
 
-      <section id="apropos" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
+      <section id="apropos" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
         <div className="grid gap-10 md:grid-cols-2 md:items-center">
           <div className="overflow-hidden rounded-[28px] shadow-xl">
             <img
               src="/propos.jpg"
               alt="Bénévolat et entraide"
-              className="h-[420px] w-full object-cover"
+              className="h-64 w-full object-cover sm:h-[420px]"
             />
           </div>
 
@@ -579,8 +579,8 @@ export default function App() {
         </div>
       </section>
 
-      <section id="activites" className={isDark ? "bg-slate-900 py-20" : "bg-slate-50 py-20"}>
-        <div className="mx-auto max-w-7xl px-6">
+      <section id="activites" className={isDark ? "bg-slate-900 py-16 sm:py-20" : "bg-slate-50 py-16 sm:py-20"}>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="mx-auto mb-12 max-w-2xl text-center">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-green-700">{t.activitiesLabel}</p>
             <h3 className={isDark ? "mt-3 text-3xl font-extrabold text-white md:text-4xl" : "mt-3 text-3xl font-extrabold text-slate-900 md:text-4xl"}>
@@ -611,7 +611,7 @@ export default function App() {
         </div>
       </section>
 
-      <section id="galerie" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
+      <section id="galerie" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
         <div className="mb-12 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
           <div>
             <p className={isDark ? "text-sm font-bold uppercase tracking-[0.2em] text-orange-300" : "text-sm font-bold uppercase tracking-[0.2em] text-orange-500"}>{t.galleryLabel}</p>
@@ -642,15 +642,15 @@ export default function App() {
         </div>
       </section>
 
-      <section id="don" className="bg-gradient-to-r from-green-700 to-green-800 py-20 text-white">
-        <div className="mx-auto grid max-w-7xl gap-10 px-6 md:grid-cols-2 md:items-center">
+      <section id="don" className="bg-gradient-to-r from-green-700 to-green-800 py-16 text-white sm:py-20">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 md:grid-cols-2 md:items-center">
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange-200">{t.donLabel}</p>
             <h3 className="mt-3 text-3xl font-extrabold md:text-5xl">{t.donTitle}</h3>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-green-50">{t.donText}</p>
           </div>
 
-          <div className={isDark ? "rounded-[30px] bg-slate-950 p-8 text-slate-100 shadow-2xl shadow-black/30 ring-1 ring-white/10" : "rounded-[30px] bg-white p-8 text-slate-800 shadow-2xl"}>
+          <div className={isDark ? "rounded-[30px] bg-slate-950 p-5 text-slate-100 shadow-2xl shadow-black/30 ring-1 ring-white/10 sm:p-8" : "rounded-[30px] bg-white p-5 text-slate-800 shadow-2xl sm:p-8"}>
             <div className="mb-6 flex items-center gap-3">
               <div className="rounded-2xl bg-green-100 p-3 text-green-700">
                 <BankIcon className="h-6 w-6" />
@@ -664,12 +664,12 @@ export default function App() {
             <div className="space-y-4">
               <div className={isDark ? "rounded-2xl border border-white/10 bg-white/5 p-4" : "rounded-2xl border border-slate-200 bg-slate-50 p-4"}>
                 <p className={isDark ? "text-sm font-semibold text-slate-400" : "text-sm font-semibold text-slate-500"}>{t.rib}</p>
-                <div className="mt-2 flex items-center justify-between gap-3">
-                  <p className={isDark ? "font-bold text-white" : "font-bold text-slate-900"}>230610566047522100160028</p>
+                <div className="mt-2 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <p className={isDark ? "w-full break-all font-bold text-white" : "w-full break-all font-bold text-slate-900"}>230610566047522100160028</p>
                   <button
                     type="button"
                     onClick={() => copyToClipboard("230610566047522100160028")}
-                    className="inline-flex items-center gap-2 rounded-xl bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600 sm:w-auto"
                   >
                     <CopyIcon className="h-4 w-4" /> {t.copy}
                   </button>
@@ -678,12 +678,12 @@ export default function App() {
 
               <div className={isDark ? "rounded-2xl border border-white/10 bg-white/5 p-4" : "rounded-2xl border border-slate-200 bg-slate-50 p-4"}>
                 <p className={isDark ? "text-sm font-semibold text-slate-400" : "text-sm font-semibold text-slate-500"}>{t.bank}</p>
-                <div className="mt-2 flex items-center justify-between gap-3">
-                  <p className={isDark ? "font-bold text-white" : "font-bold text-slate-900"}>Cih Bank</p>
+                <div className="mt-2 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <p className={isDark ? "w-full break-words font-bold text-white" : "w-full break-words font-bold text-slate-900"}>Cih Bank</p>
                   <button
                     type="button"
                     onClick={() => copyToClipboard("Cih Bank")}
-                    className="inline-flex items-center gap-2 rounded-xl bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600 sm:w-auto"
                   >
                     <CopyIcon className="h-4 w-4" /> {t.copy}
                   </button>
@@ -692,12 +692,12 @@ export default function App() {
 
               <div className={isDark ? "rounded-2xl border border-white/10 bg-white/5 p-4" : "rounded-2xl border border-slate-200 bg-slate-50 p-4"}>
                 <p className={isDark ? "text-sm font-semibold text-slate-400" : "text-sm font-semibold text-slate-500"}>{t.accountOwner}</p>
-                <div className="mt-2 flex items-center justify-between gap-3">
-                  <p className={isDark ? "font-bold text-white" : "font-bold text-slate-900"}>Association Ennour pour le Développement et la Charité</p>
+                <div className="mt-2 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <p className={isDark ? "w-full break-words font-bold text-white" : "w-full break-words font-bold text-slate-900"}>Association Ennour pour le Développement et la Charité</p>
                   <button
                     type="button"
                     onClick={() => copyToClipboard("Association Ennour pour le Développement et la Charité")}
-                    className="inline-flex items-center gap-2 rounded-xl bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600 sm:w-auto"
                   >
                     <CopyIcon className="h-4 w-4" /> {t.copy}
                   </button>
@@ -710,7 +710,7 @@ export default function App() {
         </div>
       </section>
 
-      <section id="contact" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
+      <section id="contact" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
         <div className="grid gap-8 md:grid-cols-2">
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-green-700">{t.contactLabel}</p>
@@ -720,7 +720,7 @@ export default function App() {
             <div className="mt-8 space-y-5">
               <div className={isDark ? "flex items-center gap-4 rounded-2xl bg-white/5 p-5 ring-1 ring-white/10" : "flex items-center gap-4 rounded-2xl bg-slate-50 p-5"}>
                 <MailIcon className="h-6 w-6 text-orange-500" />
-                <span className={isDark ? "text-slate-200" : "text-slate-700"}>contact.association.ennour@gmail.com</span>
+                <span className={isDark ? "break-all text-sm text-slate-200 sm:text-base" : "break-all text-sm text-slate-700 sm:text-base"}>contact.association.ennour@gmail.com</span>
               </div>
               <div className={isDark ? "flex items-center gap-4 rounded-2xl bg-white/5 p-5 ring-1 ring-white/10" : "flex items-center gap-4 rounded-2xl bg-slate-50 p-5"}>
                 <PhoneIcon className="h-6 w-6 text-green-700" />
@@ -728,12 +728,12 @@ export default function App() {
               </div>
               <div className={isDark ? "flex items-center gap-4 rounded-2xl bg-white/5 p-5 ring-1 ring-white/10" : "flex items-center gap-4 rounded-2xl bg-slate-50 p-5"}>
                 <MapPinIcon className="h-6 w-6 text-orange-500" />
-                <span className={isDark ? "text-slate-200" : "text-slate-700"}>{t.mapLocation}</span>
+                <span className={isDark ? "break-words text-sm text-slate-200 sm:text-base" : "break-words text-sm text-slate-700 sm:text-base"}>{t.mapLocation}</span>
               </div>
             </div>
           </div>
 
-          <div className={isDark ? "rounded-[30px] border border-white/10 bg-slate-950 p-8 shadow-xl shadow-black/30" : "rounded-[30px] border border-slate-100 bg-white p-8 shadow-xl shadow-slate-200"}>
+          <div className={isDark ? "rounded-[30px] border border-white/10 bg-slate-950 p-5 shadow-xl shadow-black/30 sm:p-8" : "rounded-[30px] border border-slate-100 bg-white p-5 shadow-xl shadow-slate-200 sm:p-8"}>
             <h4 className={isDark ? "text-2xl font-bold text-white" : "text-2xl font-bold text-slate-900"}>{t.formTitle}</h4>
             <form onSubmit={handleSubmit} className="mt-6 grid gap-4">
               <input
@@ -782,7 +782,7 @@ export default function App() {
 
       <footer className="relative overflow-hidden bg-slate-950 text-white">
         <div className="absolute inset-0 bg-gradient-to-r from-green-900/30 via-transparent to-orange-900/20" />
-        <div className="relative mx-auto max-w-7xl px-6 py-14">
+        <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-14">
           <div className="grid gap-10 border-b border-white/10 pb-10 md:grid-cols-4">
             <div className="md:col-span-2">
               <div className="flex items-center gap-3">
@@ -849,8 +849,8 @@ export default function App() {
           </div>
 
           <div className="flex flex-col gap-3 pt-6 text-sm text-slate-400 md:flex-row md:items-center md:justify-between">
-            <p>{t.footerRights}</p>
-            <p>{t.footerMotto}</p>
+            <p className="text-center md:text-start">{t.footerRights}</p>
+            <p className="text-center md:text-start">{t.footerMotto}</p>
           </div>
         </div>
       </footer>

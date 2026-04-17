@@ -452,7 +452,7 @@ export default function App() {
             : "relative overflow-hidden bg-gradient-to-br from-green-50 via-white to-orange-50"
         }
       >
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 sm:px-6 md:grid-cols-2 md:py-24">
+        <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 py-10 sm:px-6 md:grid-cols-2 md:gap-10 md:py-24">
           <div>
             <span
               className={
@@ -464,19 +464,19 @@ export default function App() {
               {t.badge}
             </span>
 
-            <h2 className={isDark ? "mt-6 text-3xl font-extrabold leading-tight text-white sm:text-4xl md:text-6xl" : "mt-6 text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl md:text-6xl"}>
+            <h2 className={isDark ? "mt-5 text-2xl font-extrabold leading-tight text-white sm:mt-6 sm:text-4xl md:text-6xl" : "mt-5 text-2xl font-extrabold leading-tight text-slate-900 sm:mt-6 sm:text-4xl md:text-6xl"}>
               {t.heroTitle1} <span className="text-green-700">{t.heroHope}</span>,
               <span className="text-orange-500"> {t.heroHelp}</span> {t.heroTitle2}
             </h2>
 
-            <p className={isDark ? "mt-6 max-w-xl text-lg leading-8 text-slate-300" : "mt-6 max-w-xl text-lg leading-8 text-slate-600"}>
+            <p className={isDark ? "mt-5 max-w-xl text-base leading-7 text-slate-300 sm:mt-6 sm:text-lg sm:leading-8" : "mt-5 max-w-xl text-base leading-7 text-slate-600 sm:mt-6 sm:text-lg sm:leading-8"}>
               {t.heroText}
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-4">
               <a
                 href="#don"
-                className="inline-flex items-center gap-2 rounded-2xl bg-green-700 px-6 py-4 font-semibold text-white shadow-lg shadow-green-200 transition hover:-translate-y-1 hover:bg-green-800"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-green-700 px-6 py-3.5 font-semibold text-white shadow-lg shadow-green-200 transition hover:-translate-y-1 hover:bg-green-800 sm:w-auto sm:py-4"
               >
                 {t.heroDonate} <ArrowIcon className="h-4 w-4" />
               </a>
@@ -485,15 +485,15 @@ export default function App() {
                 href="#apropos"
                 className={
                   isDark
-                    ? "rounded-2xl border border-white/10 bg-white/5 px-6 py-4 font-semibold text-slate-100 transition hover:border-green-500 hover:text-green-300"
-                    : "rounded-2xl border border-slate-200 bg-white px-6 py-4 font-semibold text-slate-700 transition hover:border-green-600 hover:text-green-700"
+                    ? "inline-flex w-full items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-6 py-3.5 font-semibold text-slate-100 transition hover:border-green-500 hover:text-green-300 sm:w-auto sm:py-4"
+                    : "inline-flex w-full items-center justify-center rounded-2xl border border-slate-200 bg-white px-6 py-3.5 font-semibold text-slate-700 transition hover:border-green-600 hover:text-green-700 sm:w-auto sm:py-4"
                 }
               >
                 {t.heroDiscover}
               </a>
             </div>
 
-            <div className="mt-10 grid gap-4 sm:grid-cols-3">
+            <div className="mt-8 grid gap-3 sm:mt-10 sm:gap-4 sm:grid-cols-3">
               <div className={statCardClass}>
                 <p className="text-2xl font-bold text-green-700">500+</p>
                 <p className={isDark ? "mt-1 text-sm text-slate-400" : "mt-1 text-sm text-slate-500"}>{t.stat1}</p>
@@ -512,13 +512,13 @@ export default function App() {
           <div className="relative">
             <div className="absolute -left-6 top-10 h-32 w-32 rounded-full bg-orange-200/50 blur-3xl" />
             <div className="absolute -right-6 bottom-10 h-40 w-40 rounded-full bg-green-200/50 blur-3xl" />
-            <div className={isDark ? "relative overflow-hidden rounded-[32px] bg-white/5 p-3 shadow-2xl shadow-black/30 ring-1 ring-white/10" : "relative overflow-hidden rounded-[32px] bg-white p-3 shadow-2xl shadow-slate-200"}>
+            <div className={isDark ? "relative overflow-hidden rounded-[24px] bg-white/5 p-2.5 shadow-2xl shadow-black/30 ring-1 ring-white/10 sm:rounded-[32px] sm:p-3" : "relative overflow-hidden rounded-[24px] bg-white p-2.5 shadow-2xl shadow-slate-200 sm:rounded-[32px] sm:p-3"}>
               <img
                 src="/propos.jpg"
                 alt="Action caritative"
-                className="h-[320px] w-full rounded-[24px] object-cover sm:h-[420px] md:h-[520px]"
+                className="h-64 w-full rounded-[18px] object-cover sm:h-[420px] sm:rounded-[24px] md:h-[520px]"
               />
-              <div className={isDark ? "absolute bottom-8 left-8 right-8 rounded-3xl bg-slate-950/75 p-5 backdrop-blur ring-1 ring-white/10" : "absolute bottom-8 left-8 right-8 rounded-3xl bg-white/90 p-5 backdrop-blur"}>
+              <div className={isDark ? "absolute bottom-3 left-3 right-3 rounded-2xl bg-slate-950/75 p-3.5 backdrop-blur ring-1 ring-white/10 sm:bottom-8 sm:left-8 sm:right-8 sm:rounded-3xl sm:p-5" : "absolute bottom-3 left-3 right-3 rounded-2xl bg-white/90 p-3.5 backdrop-blur sm:bottom-8 sm:left-8 sm:right-8 sm:rounded-3xl sm:p-5"}>
                 <div className="flex items-center gap-3">
                   <div className="rounded-2xl bg-green-100 p-3 text-green-700">
                     <ShieldIcon className="h-6 w-6" />
@@ -536,7 +536,7 @@ export default function App() {
         </div>
       </section>
 
-      <section id="apropos" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
+      <section id="apropos" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
         <div className="grid gap-10 md:grid-cols-2 md:items-center">
           <div className="overflow-hidden rounded-[28px] shadow-xl">
             <img
@@ -579,7 +579,7 @@ export default function App() {
         </div>
       </section>
 
-      <section id="activites" className={isDark ? "bg-slate-900 py-16 sm:py-20" : "bg-slate-50 py-16 sm:py-20"}>
+      <section id="activites" className={isDark ? "bg-slate-900 py-12 sm:py-20" : "bg-slate-50 py-12 sm:py-20"}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="mx-auto mb-12 max-w-2xl text-center">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-green-700">{t.activitiesLabel}</p>
@@ -599,8 +599,8 @@ export default function App() {
               >
                 <img src={activity.image} alt={activity.title} className="h-56 w-full object-cover" />
                 <div className="p-6">
-                  <h4 className={isDark ? "text-xl font-bold text-white" : "text-xl font-bold text-slate-900"}>{activity.title}</h4>
-                  <p className={isDark ? "mt-3 leading-7 text-slate-300" : "mt-3 leading-7 text-slate-600"}>{activity.text}</p>
+                  <h4 className={isDark ? "text-lg font-bold text-white sm:text-xl" : "text-lg font-bold text-slate-900 sm:text-xl"}>{activity.title}</h4>
+                  <p className={isDark ? "mt-3 text-sm leading-6 text-slate-300 sm:text-base sm:leading-7" : "mt-3 text-sm leading-6 text-slate-600 sm:text-base sm:leading-7"}>{activity.text}</p>
                   <a href="#don" className="mt-5 inline-flex items-center gap-2 font-semibold text-green-700 hover:text-orange-500">
                     {t.supportAction} <ArrowIcon className="h-4 w-4" />
                   </a>
@@ -611,7 +611,7 @@ export default function App() {
         </div>
       </section>
 
-      <section id="galerie" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
+      <section id="galerie" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
         <div className="mb-12 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
           <div>
             <p className={isDark ? "text-sm font-bold uppercase tracking-[0.2em] text-orange-300" : "text-sm font-bold uppercase tracking-[0.2em] text-orange-500"}>{t.galleryLabel}</p>
@@ -630,7 +630,7 @@ export default function App() {
               <img
                 src={image}
                 alt={`Galerie ${index + 1}`}
-                className="h-72 w-full object-cover transition duration-500 group-hover:scale-110"
+                className="h-56 w-full object-cover transition duration-500 group-hover:scale-110 sm:h-72"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
               <div className="absolute bottom-4 left-4 flex items-center gap-2 text-white">
@@ -642,12 +642,12 @@ export default function App() {
         </div>
       </section>
 
-      <section id="don" className="bg-gradient-to-r from-green-700 to-green-800 py-16 text-white sm:py-20">
+      <section id="don" className="bg-gradient-to-r from-green-700 to-green-800 py-12 text-white sm:py-20">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 md:grid-cols-2 md:items-center">
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange-200">{t.donLabel}</p>
-            <h3 className="mt-3 text-3xl font-extrabold md:text-5xl">{t.donTitle}</h3>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-green-50">{t.donText}</p>
+            <h3 className="mt-3 text-2xl font-extrabold sm:text-3xl md:text-5xl">{t.donTitle}</h3>
+            <p className="mt-5 max-w-2xl text-base leading-7 text-green-50 sm:mt-6 sm:text-lg sm:leading-8">{t.donText}</p>
           </div>
 
           <div className={isDark ? "rounded-[30px] bg-slate-950 p-5 text-slate-100 shadow-2xl shadow-black/30 ring-1 ring-white/10 sm:p-8" : "rounded-[30px] bg-white p-5 text-slate-800 shadow-2xl sm:p-8"}>
@@ -710,12 +710,12 @@ export default function App() {
         </div>
       </section>
 
-      <section id="contact" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
+      <section id="contact" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
         <div className="grid gap-8 md:grid-cols-2">
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-green-700">{t.contactLabel}</p>
-            <h3 className={isDark ? "mt-3 text-3xl font-extrabold text-white md:text-4xl" : "mt-3 text-3xl font-extrabold text-slate-900 md:text-4xl"}>{t.contactTitle}</h3>
-            <p className={isDark ? "mt-5 text-lg leading-8 text-slate-300" : "mt-5 text-lg leading-8 text-slate-600"}>{t.contactText}</p>
+            <h3 className={isDark ? "mt-3 text-2xl font-extrabold text-white sm:text-3xl md:text-4xl" : "mt-3 text-2xl font-extrabold text-slate-900 sm:text-3xl md:text-4xl"}>{t.contactTitle}</h3>
+            <p className={isDark ? "mt-4 text-base leading-7 text-slate-300 sm:mt-5 sm:text-lg sm:leading-8" : "mt-4 text-base leading-7 text-slate-600 sm:mt-5 sm:text-lg sm:leading-8"}>{t.contactText}</p>
 
             <div className="mt-8 space-y-5">
               <div className={isDark ? "flex items-center gap-4 rounded-2xl bg-white/5 p-5 ring-1 ring-white/10" : "flex items-center gap-4 rounded-2xl bg-slate-50 p-5"}>
@@ -774,7 +774,7 @@ export default function App() {
         target="_blank"
         rel="noreferrer"
         aria-label="WhatsApp"
-        className="fixed bottom-5 right-5 z-[999] flex items-center gap-2 rounded-full bg-green-500 px-4 py-3 text-white shadow-2xl transition hover:scale-105 hover:bg-green-600"
+        className="fixed bottom-4 right-4 z-[999] flex items-center gap-2 rounded-full bg-green-500 px-3.5 py-2.5 text-white shadow-2xl transition hover:scale-105 hover:bg-green-600 sm:bottom-5 sm:right-5 sm:px-4 sm:py-3"
       >
         <WhatsAppIcon className="h-5 w-5 text-white" />
         <span className="hidden sm:inline">WhatsApp</span>
