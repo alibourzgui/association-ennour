@@ -527,7 +527,7 @@ export default function App() {
   const whatsappMessage = encodeURIComponent(
     "السلام عليكم، أود التواصل مع جمعية النور للتنمية والأعمال الخيرية."
   );
-  const whatsappLink = `https://wa.me/212613196865?text=${whatsappMessage}`;
+  const whatsappLink = `https://wa.me/212XXXXX?text=${whatsappMessage}`;
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
