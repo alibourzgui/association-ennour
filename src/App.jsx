@@ -1057,8 +1057,8 @@ export default function App() {
         id="accueil"
         className={
           isDark
-            ? "relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"
-            : "relative overflow-hidden bg-gradient-to-br from-green-50 via-white to-orange-50"
+            ? "scroll-mt-28 relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"
+            : "scroll-mt-28 relative overflow-hidden bg-gradient-to-br from-green-50 via-white to-orange-50"
         }
       >
         <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 py-10 sm:px-6 md:grid-cols-2 md:gap-10 md:py-24">
@@ -1145,7 +1145,7 @@ export default function App() {
         </div>
       </section>
 
-      <section id="apropos" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
+      <section id="apropos" className="scroll-mt-28 mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
         <div className="grid gap-10 md:grid-cols-2 md:items-center">
           <div className="overflow-hidden rounded-[28px] shadow-xl">
             <img
@@ -1188,7 +1188,7 @@ export default function App() {
         </div>
       </section>
 
-      <section id="activites" className={isDark ? "bg-slate-900 py-12 sm:py-20" : "bg-slate-50 py-12 sm:py-20"}>
+      <section id="activites" className={isDark ? "scroll-mt-28 bg-slate-900 py-12 sm:py-20" : "scroll-mt-28 bg-slate-50 py-12 sm:py-20"}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="mx-auto mb-12 max-w-2xl text-center">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-green-700">{t.activitiesLabel}</p>
@@ -1294,7 +1294,7 @@ export default function App() {
         </div>
       </section>
 
-      <section id="galerie" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
+      <section id="galerie" className="scroll-mt-28 mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
         <div className="mb-12 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
           <div>
             <p className={isDark ? "text-sm font-bold uppercase tracking-[0.2em] text-orange-300" : "text-sm font-bold uppercase tracking-[0.2em] text-orange-500"}>{t.galleryLabel}</p>
@@ -1325,7 +1325,7 @@ export default function App() {
         </div>
       </section>
 
-      <section id="don" className="bg-gradient-to-r from-green-700 to-green-800 py-12 text-white sm:py-20">
+      <section id="don" className="scroll-mt-28 bg-gradient-to-r from-green-700 to-green-800 py-12 text-white sm:py-20">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 md:grid-cols-2 md:items-center">
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-orange-200">{t.donLabel}</p>
@@ -1393,7 +1393,7 @@ export default function App() {
         </div>
       </section>
 
-      <section id="contact" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
+      <section id="contact" className="scroll-mt-28 mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
         <div className="grid gap-8 md:grid-cols-2">
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-green-700">{t.contactLabel}</p>
