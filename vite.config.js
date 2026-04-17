@@ -84,5 +84,9 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react(), tailwindcss(), assistantApiPlugin(env)],
+    build: {
+      outDir: 'dist',
+      sourcemap: false,
+    },
   };
 });
