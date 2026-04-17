@@ -3,8 +3,8 @@
   "outputDirectory": "dist",
   "devCommand": "npm run dev",
   "env": {
-    "VITE_SUPABASE_URL": "@vite_supabase_url",
-    "VITE_SUPABASE_ANON_KEY": "@vite_supabase_anon_key",
+    "VITE_SUPABASE_URL": "@VITE_SUPABASE_URL",
+    "VITE_SUPABASE_ANON_KEY": "@VITE_SUPABASE_ANON_KEY",
     "AI_API_KEY": "@ai_api_key",
     "AI_BASE_URL": "@ai_base_url",
     "AI_MODEL": "@ai_model"
