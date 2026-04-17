@@ -1,4 +1,5 @@
 import React from "react";
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 const activitiesData = {
   fr: [
@@ -1355,6 +1356,7 @@ export default function App() {
           </p>
         </div>
       </footer>
+      <SpeedInsights />
     </div>
   );
 }
