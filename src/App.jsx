@@ -1,4 +1,9 @@
 import React from "react";
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const activitiesData = {
   fr: [
@@ -84,6 +89,24 @@ const content = {
     activitiesText:
       "Nous intervenons dans plusieurs domaines pour répondre aux besoins essentiels des personnes les plus fragiles.",
     supportAction: "Soutenir cette action",
+    loginButton: "Se connecter",
+    loginClose: "Fermer",
+    loginTitle: "Espace administrateur",
+    loginDescription: "Connectez-vous pour gérer les activités.",
+    loginEmailLabel: "Email",
+    loginPasswordLabel: "Mot de passe",
+    loginSubmit: "Connexion",
+    loginFailed: "Email ou mot de passe incorrect.",
+    logoutLabel: "Déconnexion",
+    manageLabel: "Gérer les activités",
+    manageHideLabel: "Fermer la gestion",
+    manageSectionTitle: "Modifier les activités",
+    deleteAction: "Supprimer",
+    addActivityButton: "Ajouter une activité",
+    titlePlaceholder: "Titre de l'activité",
+    textPlaceholder: "Description de l'activité",
+    uploadImageLabel: "Image à télécharger",
+    imagePlaceholder: "URL de l'image",
     galleryLabel: "Galerie",
     galleryTitle: "Nos actions en images",
     galleryText:
@@ -178,6 +201,24 @@ const content = {
     activitiesText:
       "نتدخل في عدة مجالات لتلبية الحاجات الأساسية للفئات الأكثر هشاشة.",
     supportAction: "ادعم هذه المبادرة",
+    loginButton: "تسجيل الدخول",
+    loginClose: "إغلاق",
+    loginTitle: "منطقة الإدارة",
+    loginDescription: "سجل دخولك لإدارة الأنشطة.",
+    loginEmailLabel: "البريد الإلكتروني",
+    loginPasswordLabel: "كلمة المرور",
+    loginSubmit: "دخول",
+    loginFailed: "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+    logoutLabel: "تسجيل الخروج",
+    manageLabel: "إدارة الأنشطة",
+    manageHideLabel: "إغلاق الإدارة",
+    manageSectionTitle: "تعديل الأنشطة",
+    deleteAction: "حذف",
+    addActivityButton: "إضافة نشاط",
+    titlePlaceholder: "عنوان النشاط",
+    textPlaceholder: "نص النشاط",
+    uploadImageLabel: "تحميل صورة",
+    imagePlaceholder: "رابط الصورة",
     galleryLabel: "المعرض",
     galleryTitle: "صور من أنشطتنا",
     galleryText:
@@ -362,8 +403,16 @@ function ThemeToggleIcon({ isDark }) {
 
 function ChatIcon({ className = "h-5 w-5" }) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
-      <path d="M4 5a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H9l-4.5 3V16A3 3 0 0 1 2 13V5h2Zm4.5 3.25a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5Zm3.5 0a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5Zm3.5 0a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5Z" />
+    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+      <path
+        d="M6.5 7.5h11a2.5 2.5 0 0 1 2.5 2.5v4a2.5 2.5 0 0 1-2.5 2.5h-5.2l-3.2 2.4c-.5.37-1.2.01-1.2-.61V16.5H6.5A2.5 2.5 0 0 1 4 14V10a2.5 2.5 0 0 1 2.5-2.5Z"
+        fill="currentColor"
+      />
+      <circle cx="9.5" cy="12" r="1" fill="white" />
+      <circle cx="12" cy="12" r="1" fill="white" />
+      <circle cx="14.5" cy="12" r="1" fill="white" />
+      <path d="M18.8 4.2v2.2M17.7 5.3h2.2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M16.3 3.7v1.3M15.65 4.35h1.3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.75" />
     </svg>
   );
 }
@@ -379,13 +428,27 @@ export default function App() {
   const assistantScrollRef = React.useRef(null);
   const assistantAbortRef = React.useRef(null);
 
+  const [showLogin, setShowLogin] = React.useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.localStorage.getItem("ennourLoggedIn") === "true";
+  });
+  const [loginEmail, setLoginEmail] = React.useState("");
+  const [loginPassword, setLoginPassword] = React.useState("");
+  const [loginError, setLoginError] = React.useState("");
+  const [showManager, setShowManager] = React.useState(false);
+  const [uploadedImage, setUploadedImage] = React.useState(null);
+  const [activitiesDataState, setActivitiesDataState] = React.useState(activitiesData);
+  const [isLoadingActivities, setIsLoadingActivities] = React.useState(true);
+
   const aiApiKey = import.meta.env.VITE_AI_API_KEY;
   const aiBaseUrl = import.meta.env.VITE_AI_BASE_URL || "https://api.openai.com/v1";
   const aiModel = import.meta.env.VITE_AI_MODEL || "gpt-4o-mini";
   const aiEndpoint = import.meta.env.VITE_ASSISTANT_ENDPOINT || "/api/assistant";
 
   const t = content[lang];
-  const activities = activitiesData[lang];
+  const activities = activitiesDataState[lang];
   const isArabic = lang === "ar";
 
   React.useEffect(() => {
@@ -405,6 +468,58 @@ export default function App() {
     };
   }, []);
 
+  React.useEffect(() => {
+    const loadActivitiesFromSupabase = async () => {
+      try {
+        setIsLoadingActivities(true);
+        const { data, error } = await supabase
+          .from("activities")
+          .select("*")
+          .order("created_at", { ascending: false });
+
+        if (error) throw error;
+
+        // Group activities by language
+        const grouped = {
+          fr: activitiesData.fr,
+          ar: activitiesData.ar,
+        };
+
+        if (data && data.length > 0) {
+          data.forEach((activity) => {
+            const lang = activity.lang || "fr";
+            if (!grouped[lang]) {
+              grouped[lang] = [];
+            }
+            grouped[lang].push({
+              title: activity.title,
+              text: activity.text,
+              image: activity.image,
+              id: activity.id,
+            });
+          });
+        }
+
+        setActivitiesDataState(grouped);
+      } catch (err) {
+        console.error("Error loading activities:", err);
+      } finally {
+        setIsLoadingActivities(false);
+      }
+    };
+
+    loadActivitiesFromSupabase();
+  }, []);
+
+  React.useEffect(() => {
+    if (showManager && isLoggedIn) {
+      const activitiesSection = document.getElementById("activites");
+      if (activitiesSection) {
+        activitiesSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [showManager, isLoggedIn]);
+
   const whatsappMessage = encodeURIComponent(
     "السلام عليكم، أود التواصل مع جمعية النور للتنمية والأعمال الخيرية."
   );
@@ -419,6 +534,87 @@ export default function App() {
     const subject = encodeURIComponent(`${t.formTitle} - ${form.name}`);
     const body = encodeURIComponent(`${form.message}\n\nEmail: ${form.email}`);
     window.location.href = `mailto:contact.association.ennour@gmail.com?subject=${subject}&body=${body}`;
+  };
+
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    if (loginEmail === "admin@ennour.com" && loginPassword === "123456") {
+      setIsLoggedIn(true);
+      setShowLogin(false);
+      setShowManager(true);
+      setLoginError("");
+      try {
+        window.localStorage.setItem("ennourLoggedIn", "true");
+      } catch {
+        // ignore
+      }
+      return;
+    }
+
+    setLoginError(t.loginFailed);
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      setUploadedImage(null);
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setUploadedImage(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleAddActivity = async (e) => {
+    e.preventDefault();
+    const title = e.target.title.value;
+    const text = e.target.text.value;
+
+    if (!uploadedImage) {
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase
+        .from("activities")
+        .insert([
+          {
+            title,
+            text,
+            image: uploadedImage,
+            lang,
+          },
+        ])
+        .select();
+
+      if (error) throw error;
+
+      // Add to local state
+      if (data && data.length > 0) {
+        setActivitiesDataState((prev) => ({
+          ...prev,
+          [lang]: [...prev[lang], { title, text, image: uploadedImage, id: data[0].id }],
+        }));
+      }
+
+      e.target.reset();
+      setUploadedImage(null);
+    } catch (err) {
+      console.error("Error adding activity:", err);
+    }
+  };
+
+  const logout = () => {
+    setIsLoggedIn(false);
+    setShowManager(false);
+    try {
+      window.localStorage.removeItem("ennourLoggedIn");
+    } catch {
+      // ignore
+    }
   };
 
   const copyToClipboard = async (text) => {
@@ -646,8 +842,8 @@ export default function App() {
   return (
     <div className={pageClass} dir={isArabic ? "rtl" : "ltr"}>
       <header className={headerClass}>
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-3 sm:gap-3 sm:px-6 sm:py-4">
-          <div className="flex min-w-0 flex-1 items-center gap-3">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-3 sm:gap-3 sm:px-6 sm:py-4 md:flex-row md:items-center md:justify-between">
+          <div className="flex min-w-0 items-center gap-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white shadow-sm sm:h-12 sm:w-12">
               <img src="/logo.jpg" alt="Logo" className="h-full w-full object-contain" />
             </div>
@@ -684,7 +880,7 @@ export default function App() {
             <a href="#contact" className="transition hover:text-green-500">{t.nav[5]}</a>
           </nav>
 
-            <div className="ml-1 flex shrink-0 items-center gap-2 sm:ml-2 sm:gap-3">
+            <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3">
             <button
               type="button"
               onClick={() => setLang((prev) => (prev === "fr" ? "ar" : "fr"))}
@@ -712,22 +908,146 @@ export default function App() {
 
             <a
               href="#don"
-              className="hidden rounded-xl bg-orange-500 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-orange-200 transition hover:-translate-y-0.5 hover:bg-orange-600 sm:inline-flex"
+              className="inline-flex rounded-xl bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-orange-200 transition hover:-translate-y-0.5 hover:bg-orange-600 sm:px-5 sm:py-3"
             >
               {t.donateBtn}
             </a>
+
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen((value) => !value)}
+              aria-label={lang === "fr" ? (isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu") : "Menu"}
+              className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-3 py-3 text-slate-700 transition hover:bg-slate-50 md:hidden"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5">
+                {isMobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 7h16" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 12h16" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 17h16" />
+                  </>
+                )}
+              </svg>
+            </button>
+
+            {!isLoggedIn ? (
+              <button
+                type="button"
+                onClick={() => setShowLogin((value) => !value)}
+                className="hidden md:inline-flex rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-lg transition hover:bg-slate-50 sm:px-5 sm:py-3"
+              >
+                {showLogin ? t.loginClose : t.loginButton}
+              </button>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  onClick={() => setShowManager((value) => !value)}
+                  className="hidden md:inline-flex rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-lg transition hover:bg-slate-50 sm:px-5 sm:py-3"
+                >
+                  {showManager ? t.manageHideLabel : t.manageLabel}
+                </button>
+                <button
+                  type="button"
+                  onClick={logout}
+                  className="hidden md:inline-flex rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-lg transition hover:bg-slate-50 sm:px-5 sm:py-3"
+                >
+                  {t.logoutLabel}
+                </button>
+              </>
+            )}
           </div>
         </div>
 
-        <div className="mx-auto mt-2 flex max-w-7xl gap-2 overflow-x-auto px-4 pb-3 md:hidden sm:px-6">
-          <a href="#accueil" className="whitespace-nowrap rounded-full bg-green-50 px-4 py-2 text-sm font-medium text-green-700">{t.nav[0]}</a>
-          <a href="#apropos" className="whitespace-nowrap rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">{t.nav[1]}</a>
-          <a href="#activites" className="whitespace-nowrap rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">{t.nav[2]}</a>
-          <a href="#galerie" className="whitespace-nowrap rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">{t.nav[3]}</a>
-          <a href="#don" className="whitespace-nowrap rounded-full bg-orange-100 px-4 py-2 text-sm font-medium text-orange-700">{t.donateBtn}</a>
-          <a href="#contact" className="whitespace-nowrap rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">{t.nav[5]}</a>
+        <div className={`mx-auto mt-2 overflow-hidden px-4 pb-3 md:hidden sm:px-6 ${isMobileMenuOpen ? "block" : "hidden"}`}>
+          <div className={isDark ? "rounded-3xl border border-white/10 bg-slate-950/90 p-4 shadow-2xl shadow-black/20" : "rounded-3xl border border-slate-200 bg-white p-4 shadow-2xl shadow-slate-200"}>
+            <div className="grid gap-3">
+              <a href="#accueil" onClick={() => setIsMobileMenuOpen(false)} className="block rounded-2xl bg-green-50 px-4 py-3 text-sm font-semibold text-green-700 transition hover:bg-green-100">{t.nav[0]}</a>
+              <a href="#apropos" onClick={() => setIsMobileMenuOpen(false)} className="block rounded-2xl bg-slate-100 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-200">{t.nav[1]}</a>
+              <a href="#activites" onClick={() => setIsMobileMenuOpen(false)} className="block rounded-2xl bg-slate-100 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-200">{t.nav[2]}</a>
+              <a href="#galerie" onClick={() => setIsMobileMenuOpen(false)} className="block rounded-2xl bg-slate-100 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-200">{t.nav[3]}</a>
+              <a href="#don" onClick={() => setIsMobileMenuOpen(false)} className="block rounded-2xl bg-orange-100 px-4 py-3 text-sm font-semibold text-orange-700 transition hover:bg-orange-200">{t.donateBtn}</a>
+              <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="block rounded-2xl bg-slate-100 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-200">{t.nav[5]}</a>
+              {!isLoggedIn ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowLogin(true);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 shadow-lg transition hover:bg-slate-50"
+                >
+                  {showLogin ? t.loginClose : t.loginButton}
+                </button>
+              ) : (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowManager((value) => !value);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 shadow-lg transition hover:bg-slate-50"
+                  >
+                    {showManager ? t.manageHideLabel : t.manageLabel}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      logout();
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 shadow-lg transition hover:bg-slate-50"
+                  >
+                    {t.logoutLabel}
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
         </div>
       </header>
+
+      {showLogin && !isLoggedIn && (
+        <section className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+          <div className={isDark ? "rounded-[28px] border border-white/10 bg-slate-950/90 p-6 shadow-2xl shadow-black/20" : "rounded-[28px] border border-slate-200 bg-white p-6 shadow-2xl shadow-slate-200"}>
+            <h2 className={isDark ? "text-2xl font-bold text-white" : "text-2xl font-bold text-slate-900"}>{t.loginTitle}</h2>
+            <p className={isDark ? "mt-2 text-sm text-slate-300" : "mt-2 text-sm text-slate-600"}>{t.loginDescription}</p>
+            <form onSubmit={handleLoginSubmit} className="mt-6 space-y-4">
+              <div>
+                <label className={isDark ? "block text-sm font-medium text-slate-200" : "block text-sm font-medium text-slate-700"}>
+                  {t.loginEmailLabel}
+                </label>
+                <input
+                  type="email"
+                  value={loginEmail}
+                  onChange={(e) => setLoginEmail(e.target.value)}
+                  required
+                  className={isDark ? "mt-2 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white" : "mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900"}
+                />
+              </div>
+              <div>
+                <label className={isDark ? "block text-sm font-medium text-slate-200" : "block text-sm font-medium text-slate-700"}>
+                  {t.loginPasswordLabel}
+                </label>
+                <input
+                  type="password"
+                  value={loginPassword}
+                  onChange={(e) => setLoginPassword(e.target.value)}
+                  required
+                  className={isDark ? "mt-2 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white" : "mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900"}
+                />
+              </div>
+              {loginError && <p className="text-sm text-red-500">{loginError}</p>}
+              <button type="submit" className="inline-flex w-full justify-center rounded-2xl bg-green-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-green-800">
+                {t.loginSubmit}
+              </button>
+            </form>
+          </div>
+        </section>
+      )}
 
       <section
         id="accueil"
@@ -889,10 +1209,84 @@ export default function App() {
                   <a href="#don" className="mt-5 inline-flex items-center gap-2 font-semibold text-green-700 hover:text-orange-500">
                     {t.supportAction} <ArrowIcon className="h-4 w-4" />
                   </a>
+
+                  {isLoggedIn && showManager && (
+                    <button
+                      onClick={async () => {
+                        if (!activity.id) {
+                          // For default activities without Supabase ID, just remove from state
+                          setActivitiesDataState((prev) => ({
+                            ...prev,
+                            [lang]: prev[lang].filter((a) => a !== activity),
+                          }));
+                          return;
+                        }
+                        
+                        try {
+                          const { error } = await supabase
+                            .from("activities")
+                            .delete()
+                            .eq("id", activity.id);
+
+                          if (error) throw error;
+
+                          setActivitiesDataState((prev) => ({
+                            ...prev,
+                            [lang]: prev[lang].filter((a) => a.id !== activity.id),
+                          }));
+                        } catch (err) {
+                          console.error("Error deleting activity:", err);
+                        }
+                      }}
+                      className="mt-2 ml-2 rounded bg-red-500 px-3 py-1 text-sm text-white hover:bg-red-600"
+                    >
+                      {t.deleteAction}
+                    </button>
+                  )}
+
                 </div>
               </div>
             ))}
           </div>
+
+          {isLoggedIn && showManager && (
+            <div className="mt-8 mx-auto max-w-md">
+              <h4 className={isDark ? "text-lg font-bold text-white" : "text-lg font-bold text-slate-900"}>{t.manageSectionTitle}</h4>
+              <form onSubmit={handleAddActivity} className="mt-4 space-y-4">
+                <input
+                  name="title"
+                  placeholder={t.titlePlaceholder || "Title"}
+                  required
+                  className={isDark ? "w-full rounded-xl border border-white/10 bg-white/5 p-3 text-white" : "w-full rounded-xl border border-slate-200 bg-white p-3"}
+                />
+                <textarea
+                  name="text"
+                  placeholder={t.textPlaceholder || "Text"}
+                  required
+                  rows="3"
+                  className={isDark ? "w-full rounded-xl border border-white/10 bg-white/5 p-3 text-white" : "w-full rounded-xl border border-slate-200 bg-white p-3"}
+                ></textarea>
+                <div>
+                  <label className={isDark ? "block text-sm font-medium text-slate-200" : "block text-sm font-medium text-slate-700"}>
+                    {t.uploadImageLabel}
+                  </label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    required
+                    className={isDark ? "mt-2 w-full rounded-xl border border-white/10 bg-slate-900 px-3 py-2 text-white" : "mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900"}
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full rounded-xl bg-green-500 py-3 text-sm font-semibold text-white transition hover:bg-green-600"
+                >
+                  {t.addActivityButton}
+                </button>
+              </form>
+            </div>
+          )}
         </div>
       </section>
 

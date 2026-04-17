@@ -362,8 +362,16 @@ function ThemeToggleIcon({ isDark }) {
 
 function ChatIcon({ className = "h-5 w-5" }) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
-      <path d="M4 5a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H9l-4.5 3V16A3 3 0 0 1 2 13V5h2Zm4.5 3.25a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5Zm3.5 0a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5Zm3.5 0a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5Z" />
+    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+      <path
+        d="M6.5 7.5h11a2.5 2.5 0 0 1 2.5 2.5v4a2.5 2.5 0 0 1-2.5 2.5h-5.2l-3.2 2.4c-.5.37-1.2.01-1.2-.61V16.5H6.5A2.5 2.5 0 0 1 4 14V10a2.5 2.5 0 0 1 2.5-2.5Z"
+        fill="currentColor"
+      />
+      <circle cx="9.5" cy="12" r="1" fill="white" />
+      <circle cx="12" cy="12" r="1" fill="white" />
+      <circle cx="14.5" cy="12" r="1" fill="white" />
+      <path d="M18.8 4.2v2.2M17.7 5.3h2.2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M16.3 3.7v1.3M15.65 4.35h1.3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.75" />
     </svg>
   );
 }
@@ -719,7 +727,7 @@ export default function App() {
           </div>
         </div>
 
-        <div className="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-4 pb-3 md:hidden sm:px-6">
+        <div className="mx-auto mt-2 flex max-w-7xl gap-2 overflow-x-auto px-4 pb-3 md:hidden sm:px-6">
           <a href="#accueil" className="whitespace-nowrap rounded-full bg-green-50 px-4 py-2 text-sm font-medium text-green-700">{t.nav[0]}</a>
           <a href="#apropos" className="whitespace-nowrap rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">{t.nav[1]}</a>
           <a href="#activites" className="whitespace-nowrap rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">{t.nav[2]}</a>
