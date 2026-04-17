@@ -726,7 +726,7 @@ export default function App() {
               <div className={isDark ? "flex flex-col items-start gap-3 rounded-2xl bg-white/5 p-5 ring-1 ring-white/10 sm:flex-row sm:items-center sm:gap-4" : "flex flex-col items-start gap-3 rounded-2xl bg-slate-50 p-5 sm:flex-row sm:items-center sm:gap-4"}>
                 <div className="flex min-w-0 flex-1 items-center gap-4">
                   <MailIcon className="h-6 w-6 shrink-0 text-orange-500" />
-                  <span className={isDark ? "break-all text-sm text-slate-200 sm:text-base" : "break-all text-sm text-slate-700 sm:text-base"}>{contactEmail}</span>
+                  <span dir="ltr" className={isDark ? "break-all text-left text-sm text-slate-200 sm:text-base" : "break-all text-left text-sm text-slate-700 sm:text-base"}>{contactEmail}</span>
                 </div>
                 <button
                   type="button"
@@ -739,7 +739,7 @@ export default function App() {
               <div className={isDark ? "flex flex-col items-start gap-3 rounded-2xl bg-white/5 p-5 ring-1 ring-white/10 sm:flex-row sm:items-center sm:gap-4" : "flex flex-col items-start gap-3 rounded-2xl bg-slate-50 p-5 sm:flex-row sm:items-center sm:gap-4"}>
                 <div className="flex min-w-0 flex-1 items-center gap-4">
                   <PhoneIcon className="h-6 w-6 shrink-0 text-green-700" />
-                  <span className={isDark ? "text-slate-200" : "text-slate-700"}>{contactPhone}</span>
+                  <span dir="ltr" className={isDark ? "text-left text-slate-200" : "text-left text-slate-700"}>{contactPhone}</span>
                 </div>
                 <button
                   type="button"

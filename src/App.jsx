@@ -117,6 +117,8 @@ const content = {
     footerContactBtn: "Nous contacter",
     footerRights: "© 2026 Association Ennour pour le Développement et la Charité. Tous droits réservés.",
     footerMotto: "Solidarité • Confiance • Engagement",
+    footerCreditLabel: "Site réalisé par",
+    footerCreditName: "Abdelali Bourzgui",
     mapLocation: "Maison des jeunes sidi Abdelkrim settat",
   },
   ar: {
@@ -186,6 +188,8 @@ const content = {
     footerContactBtn: "تواصل معنا",
     footerRights: "© 2026 جمعية النور للتنمية والأعمال الخيرية. جميع الحقوق محفوظة.",
     footerMotto: "تضامن • ثقة • التزام",
+    footerCreditLabel: "تم إنجاز الموقع بواسطة",
+    footerCreditName: "Abdelali Bourzgui",
     mapLocation: "جمعية النور للتنمية والأعمال الخيرية (المكتب المركزي سطات)، دار الشباب، سطات 26000",
   },
 };
@@ -884,6 +888,11 @@ export default function App() {
             <p className="text-center md:text-start">{t.footerRights}</p>
             <p className="text-center md:text-start">{t.footerMotto}</p>
           </div>
+          <p className="mt-4 border-t border-white/10 pt-4 text-center text-xs">
+            <span className="text-slate-500">{t.footerCreditLabel}</span>
+            <span className="mx-1 text-slate-600">•</span>
+            <span className="font-semibold tracking-wide text-orange-300">{t.footerCreditName}</span>
+          </p>
         </div>
       </footer>
     </div>
